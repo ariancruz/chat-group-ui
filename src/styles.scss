@@ -1,4 +1,7 @@
-@use "@angular/material/prebuilt-themes/indigo-pink.css";
+@use "@angular/material/prebuilt-themes/azure-blue.css";
+
+@use "primeflex/primeflex.css";
+@use "primeflex/themes/primeone-light.css";
 
 html,
 body {
@@ -7,4 +10,26 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+mat-snack-bar-container {
+  &.error {
+   .mat-mdc-snackbar-surface {
+     background-color: var(--red-500);
+     color: white;
+   }
+  }
+  &.success {
+   .mat-mdc-snackbar-surface {
+     background-color: var(--teal-500);
+     color: white;
+   }
+  }
+  &.info {
+   .mat-mdc-snackbar-surface {
+     background-color: var(--blue-500);
+     color: white;
+   }
+  }
 }
