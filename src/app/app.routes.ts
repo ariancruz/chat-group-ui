@@ -11,7 +11,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    loadComponent: () => import('./module/layout/layout.component').then(c => c.LayoutComponent)
+    loadChildren: () => import('./module/layout/layout.module').then(c => c.LayoutModule)
   },
 
 ];
