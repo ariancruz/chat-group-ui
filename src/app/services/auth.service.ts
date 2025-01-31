@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {FormAuth, UserAuthenticated} from '../models';
+import {CreateUser, FormAuth, UserAuthenticated} from '../models';
 import {buildURL} from '../utils';
 import {Observable} from 'rxjs';
 
@@ -9,9 +9,14 @@ import {Observable} from 'rxjs';
 })
 export class AuthService {
 
+  private readonly url =  buildURL('/api/auth')
   private readonly httpClient = inject(HttpClient);
 
   login(data: FormAuth): Observable<UserAuthenticated> {
-    return this.httpClient.post<UserAuthenticated>(buildURL('/api/login'), data)
+    return this.httpClient.post<UserAuthenticated>(`${this.url}/login`, data)
+  }
+
+  register(data: CreateUser): Observable<UserAuthenticated> {
+    return this.httpClient.post<UserAuthenticated>(`${this.url}/login`, data)
   }
 }

@@ -3,9 +3,13 @@ export interface FormAuth {
   password: string;
 }
 
-export interface UserAuthenticated {
-  accessToken: string;
+export interface CreateUser {
   email: string;
   name: string;
+  password: string;
+}
+
+export interface UserAuthenticated extends Omit<CreateUser, 'password'> {
+  accessToken: string;
   id: string;
 }

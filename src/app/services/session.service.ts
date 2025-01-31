@@ -1,4 +1,4 @@
-import {inject, Injectable, signal} from '@angular/core';
+import {computed, inject, Injectable, signal} from '@angular/core';
 import {Router} from '@angular/router';
 import {UserAuthenticated} from '../models';
 
@@ -9,6 +9,8 @@ export class SessionService {
 
   token = signal<string | null>(null)
   user = signal<UserAuthenticated | null>(null)
+
+  readonly isLoggedIn = computed(() => !!this.user())
 
   private readonly router = inject(Router)
 
@@ -26,4 +28,6 @@ export class SessionService {
     localStorage.setItem('access', accessToken);
     this.router.navigate(['']).then()
   }
+
+
 }

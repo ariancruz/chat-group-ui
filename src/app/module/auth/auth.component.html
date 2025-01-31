@@ -5,13 +5,13 @@
         <mat-label>
           Correo
         </mat-label>
-        <input matInput formControlName="email" required>
+        <input matInput formControlName="email">
       </mat-form-field>
       <mat-form-field>
         <mat-label>
           Contraseña
         </mat-label>
-        <input matInput [type]="hide() ? 'password' : 'text'" formArrayName="password" required>
+        <input matInput [type]="hide() ? 'password' : 'text'" formControlName="password">
         <button mat-icon-button matSuffix
                 [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()"
                 (click)="changeState($event)"
@@ -21,11 +21,17 @@
       </mat-form-field>
     </form>
   </mat-card-content>
-  <mat-card-actions class="justify-content-center">
-    <button mat-raised-button
-            type="submit" class="w-15rem" color="primary"
-            (click)="login()"
-    >Entrar</button>
+  <mat-card-actions class="flex-column align-items-stretch align-self-center">
+    <button mat-raised-button type="submit" class="w-15rem" color="primary"
+            [disabled]="form.invalid" (click)="login()">
+      Entrar
+    </button>
+
+    <mat-divider class="my-3 mx-5"/>
+
+    <button mat-raised-button routerLink="/register" class="w-15rem" color="primary">
+      Crear cuenta
+    </button>
   </mat-card-actions>
 </mat-card>
 
