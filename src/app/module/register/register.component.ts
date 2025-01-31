@@ -5,12 +5,12 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import {SessionService} from '../../services/session.service';
 import {CreateUser} from '../../models';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {tap} from 'rxjs';
+import {map, tap} from 'rxjs';
 import {mistMach} from './validators/mistMach';
 import {MatDivider} from '@angular/material/divider';
 
@@ -39,6 +39,7 @@ export class RegisterComponent {
     confirmPassword: new FormControl<string>('',Validators.required),
   }, {validators: mistMach});
 
+  private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef)
   private readonly authService = inject(AuthService)
   private readonly sessionService = inject(SessionService)
@@ -47,7 +48,8 @@ export class RegisterComponent {
   register(): void {
     this.authService.register(this.form.value as CreateUser).pipe(
       takeUntilDestroyed(this.destroyRef),
-      tap(data => this.sessionService.setUserLogged(data)),
+      tap(this.sessionService.setUserLogged),
+      map(() => this.router.navigate(['']))
     ).subscribe()
   }
 

@@ -11,5 +11,6 @@ export interface CreateUser {
 
 export interface UserAuthenticated extends Omit<CreateUser, 'password'> {
   accessToken: string;
+  refreshToken: string;
   id: string;
 }

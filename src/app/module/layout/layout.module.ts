@@ -4,7 +4,14 @@ import {LayoutComponent} from './layout.component';
 
 const routes: Routes = [{
   path: '', component: LayoutComponent, children: [
-    {path: '', loadComponent: () => import('../chat/chat.component').then(c => c.ChatComponent)}
+    {
+      path: '',
+      loadComponent: () => import('../chat/chat.component').then(c => c.ChatComponent)
+    },
+    {
+      path: '', outlet: 'sidebar',
+      loadComponent: () => import('./components/side-bar/side-bar.component').then(c => c.SideBarComponent)
+    },
   ]
 }];
 

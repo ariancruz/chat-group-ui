@@ -2,7 +2,7 @@ import {Component, inject, model} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
-import {MessagesService} from '../../services/messages.service';
+import {MessagesService} from '../../../../services/messages.service';
 
 @Component({
   selector: 'text-input',

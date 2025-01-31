@@ -17,6 +17,10 @@ export class AuthService {
   }
 
   register(data: CreateUser): Observable<UserAuthenticated> {
-    return this.httpClient.post<UserAuthenticated>(`${this.url}/login`, data)
+    return this.httpClient.post<UserAuthenticated>(`${this.url}/register`, data)
+  }
+
+  profile(): Observable<UserAuthenticated> {
+    return this.httpClient.get<UserAuthenticated>(`${this.url}/profile`)
   }
 }

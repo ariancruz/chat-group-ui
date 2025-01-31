@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import {MessagesService} from '../../services/messages.service';
+import {MessagesService} from '../../../../services/messages.service';
 import {ChatItemComponent} from './chat-item.component';
 
 @Component({

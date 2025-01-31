@@ -26,7 +26,8 @@ export class HeaderComponent {
   private readonly router = inject(Router);
 
   logout(): void {
-    this.session.logout()
+    this.session.logout();
+    this.router.navigate(['auth']).then()
   }
 
   profile(): void {

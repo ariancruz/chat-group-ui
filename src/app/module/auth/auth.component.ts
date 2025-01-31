@@ -8,9 +8,9 @@ import {MatButtonModule} from '@angular/material/button';
 import {AuthService} from '../../services/auth.service';
 import {FormAuth} from '../../models';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {tap} from 'rxjs';
+import {map, tap} from 'rxjs';
 import {SessionService} from '../../services/session.service';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {MatDivider} from '@angular/material/divider';
 
 @Component({
@@ -36,6 +36,7 @@ export class AuthComponent {
     email: new FormControl<string>('', [Validators.required, Validators.email]),
   });
 
+  private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef)
   private readonly authService = inject(AuthService)
   private readonly sessionService = inject(SessionService)
@@ -44,7 +45,8 @@ export class AuthComponent {
   login(): void {
     this.authService.login(this.form.value as FormAuth).pipe(
       takeUntilDestroyed(this.destroyRef),
-      tap(data => this.sessionService.setUserLogged(data)),
+      tap(this.sessionService.setUserLogged),
+      map(() => this.router.navigate(['']))
     ).subscribe()
   }
 
