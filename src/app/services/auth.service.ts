@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {CreateUser, FormAuth, UserAuthenticated} from '../models';
+import {CreateUser, FormAuth, RefreshTokenTO, UserAuthenticated} from '../models';
 import {buildURL} from '../utils';
 import {Observable} from 'rxjs';
 
@@ -22,5 +22,9 @@ export class AuthService {
 
   profile(): Observable<UserAuthenticated> {
     return this.httpClient.get<UserAuthenticated>(`${this.url}/profile`)
+  }
+
+  refreshToken(refreshToken: string): Observable<RefreshTokenTO> {
+    return this.httpClient.put<RefreshTokenTO>(`${this.url}/refresh`, {refreshToken})
   }
 }

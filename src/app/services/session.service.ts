@@ -1,5 +1,5 @@
 import {Injectable, linkedSignal, signal} from '@angular/core';
-import {UserAuthenticated} from '../models';
+import {RefreshTokenTO, UserAuthenticated} from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +9,7 @@ export class SessionService {
   token = signal<string | null>(null)
   user = signal<UserAuthenticated | null>(null)
 
+  refresh = linkedSignal(() => this.user()?.accessToken)
   readonly isLoggedIn = linkedSignal(() => !!this.user())
 
   logout(): void {
@@ -26,13 +27,28 @@ export class SessionService {
       localStorage.setItem('access', accessToken);
     }
     if (refreshToken) {
+      this.refresh = signal(refreshToken);
       localStorage.setItem('refresh', refreshToken);
     }
   }
 
 
-  setToken(token: string): void {
-    this.token.set(token);
-    this.isLoggedIn.set(true);
+  setToken(token: string | null): void {
+    if (token) {
+      this.token.set(token);
+      this.isLoggedIn.set(true);
+    } else {
+      this.token.set(null);
+      this.isLoggedIn.set(false);
+    }
+  }
+
+  setRefresh({refreshToken, token}: RefreshTokenTO): void {
+    if (refreshToken && token) {
+      this.token = signal(token);
+      this.refresh = signal(refreshToken);
+      localStorage.setItem('access', token);
+      localStorage.setItem('refresh', refreshToken);
+    }
   }
 }
