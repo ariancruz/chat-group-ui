@@ -8,17 +8,21 @@ import {tap} from 'rxjs';
 })
 export class MessagesService {
 
+  groupSelect = signal('')
   messagesList = signal<CommentDto[]>([])
 
   private commentHttpService = inject(CommentHttpService);
 
   loadAll(id: string) {
+    this.groupSelect.set(id);
     return this.commentHttpService.findAll(id).pipe(
       tap(list => this.messagesList.set(list))
     )
   }
 
-  send(message: string): void {
-    //this.http.post(``, {})
+  send(data: string): void {
+    this.commentHttpService.create({group: this.groupSelect(), data}).pipe(
+      tap(msg => this.messagesList.update(list => list.concat(msg)))
+    ).subscribe()
   }
 }

@@ -3,6 +3,7 @@ import {FormsModule} from '@angular/forms';
 import {MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {MessagesService} from '../../../../services/messages.service';
+import {GeminiDirective} from '../../diirectives/gemini.directive';
 
 @Component({
   selector: 'c-text-input',
@@ -10,6 +11,7 @@ import {MessagesService} from '../../../../services/messages.service';
     FormsModule,
     MatIcon,
     MatIconButton,
+    GeminiDirective,
   ],
   styles:`
     :host {
@@ -17,6 +19,7 @@ import {MessagesService} from '../../../../services/messages.service';
       justify-content: center;
       align-items: center;
       padding-bottom: 15px;
+      position: relative;
 
       textarea {
         width: 70%;
@@ -30,9 +33,14 @@ import {MessagesService} from '../../../../services/messages.service';
         }
       }
 
+      .highlighted {
+        background-color: aqua;
+      }
+
       button {
         position: relative;
         right: 3rem;
+
         &:hover, &:focus {
           color: var(--mat-sys-primary);
           transform: rotate(-45deg);
