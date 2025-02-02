@@ -1,11 +1,13 @@
 import {Component, inject} from '@angular/core';
 import {MessagesService} from '../../../../services/messages.service';
 import {ChatItemComponent} from './chat-item.component';
+import {MsgTypePipe} from '../../pipes/msg-type.pipe';
 
 @Component({
-  selector: 'chat-list',
+  selector: 'c-chat-list',
   imports: [
-    ChatItemComponent
+    ChatItemComponent,
+    MsgTypePipe
   ],
   styles: `
     :host {
@@ -21,7 +23,7 @@ import {ChatItemComponent} from './chat-item.component';
   `,
   template: `
     @for (msg of message.messagesList(); track i; let i = $index) {
-      <chat-item [data]="msg" [class]="msg.type" />
+      <c-chat-item [data]="msg" [class]="msg | msgType"/>
     }
 
   `

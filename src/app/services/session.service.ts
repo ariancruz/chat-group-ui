@@ -7,27 +7,28 @@ import {RefreshTokenTO, UserAuthenticated} from '../models';
 export class SessionService {
 
   token = signal<string | null>(null)
-  user = signal<UserAuthenticated | null>(null)
+  userAuth = signal<UserAuthenticated | null>(null)
 
-  refresh = linkedSignal(() => this.user()?.accessToken)
-  readonly isLoggedIn = linkedSignal(() => !!this.user())
+  refresh = linkedSignal(() => this.userAuth()?.accessToken)
+  readonly isLoggedIn = linkedSignal(() => !!this.userAuth())
+  readonly userId = linkedSignal(() => this.userAuth()?.id)
 
   logout(): void {
     localStorage.clear();
     this.token.set(null)
-    this.user.set(null)
+    this.userAuth.set(null)
   }
 
   setUserLogged(data: UserAuthenticated): void {
     const {accessToken, refreshToken} = data;
 
-    this.user = signal(data)
+    this.userAuth.set(data)
     if (accessToken) {
-      this.token = signal(accessToken)
+      this.token.set(accessToken)
       localStorage.setItem('access', accessToken);
     }
     if (refreshToken) {
-      this.refresh = signal(refreshToken);
+      this.refresh.set(refreshToken);
       localStorage.setItem('refresh', refreshToken);
     }
   }
@@ -45,8 +46,8 @@ export class SessionService {
 
   setRefresh({refreshToken, token}: RefreshTokenTO): void {
     if (refreshToken && token) {
-      this.token = signal(token);
-      this.refresh = signal(refreshToken);
+      this.token.set(token);
+      this.refresh.set(refreshToken);
       localStorage.setItem('access', token);
       localStorage.setItem('refresh', refreshToken);
     }

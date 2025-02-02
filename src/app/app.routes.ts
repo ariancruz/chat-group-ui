@@ -17,6 +17,5 @@ export const routes: Routes = [
     path: '',
     canActivate: [canActivateAuthGuard],
     loadChildren: () => import('./module/layout/layout.module').then(c => c.LayoutModule)
-  },
-  //{path: '**', redirectTo: ''}
+  }
 ];

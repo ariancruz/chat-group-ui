@@ -1,8 +1,11 @@
+export interface CreateCommentDto {
+  data: string;
+  group: string;
+}
 
-export type Message = {
+export interface CommentDto extends CreateCommentDto {
   _id: string;
-  text: string;
-  type: 'req' | 'res'
-  user: string
-  date: Date
+  name: string;
+  users: string;
+  createdAt: string;
 }

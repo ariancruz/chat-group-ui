@@ -4,13 +4,13 @@ import {catchError, filter, finalize, switchMap, take} from 'rxjs/operators';
 import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {NotifyService} from '../services/notify.service';
 import {SessionService} from '../services/session.service';
-import {AuthService} from '../services/auth.service';
+import {AuthHttpService} from '../http/auth.http.service';
 import {Router} from '@angular/router';
 import {RefreshTokenTO} from '../models';
 
 export function ErrorInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn) {
   const router = inject(Router);
-  const authService = inject(AuthService);
+  const authService = inject(AuthHttpService);
   const messageService = inject(NotifyService);
   const sessionService = inject(SessionService);
 
@@ -56,7 +56,7 @@ export function ErrorInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn)
       refreshTokenSubject.next(null);
       sessionService.setToken(null);
 
-      return authService.refreshToken(sessionService.refresh() || '' ).pipe(
+      return authService.refreshToken(sessionService.refresh() || '').pipe(
         switchMap((resp: RefreshTokenTO) => {
           updateSession(resp);
           return next(addAuthToken(request));

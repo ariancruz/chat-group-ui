@@ -1,9 +1,9 @@
 import {Component, input} from '@angular/core';
-import {Message} from '../../../../models';
+import {CommentDto} from '../../../../models';
 import {DatePipe} from '@angular/common';
 
 @Component({
-  selector: 'chat-item',
+  selector: 'c-chat-item',
   imports: [
     DatePipe
   ],
@@ -41,11 +41,10 @@ import {DatePipe} from '@angular/common';
     }
   `,
   template: `
-      <p>{{data().text}}</p>
-      <small>{{data().date | date: 'short'}}</small>
-
+    <p>{{ data().data }}</p>
+    <small>{{ data().createdAt | date: 'short' }}</small>
   `
 })
 export class ChatItemComponent {
-  data = input.required<Message>();
+  data = input.required<CommentDto>();
 }

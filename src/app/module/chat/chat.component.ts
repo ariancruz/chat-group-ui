@@ -3,14 +3,12 @@ import {ChatListComponent} from './components/chat-list/chat-list.component';
 import {TextInputComponent} from './components/text-input/text-input.component';
 
 @Component({
-  selector: 'app-chat',
+  selector: 'p-chat',
   imports: [
     ChatListComponent,
     TextInputComponent
   ],
-  templateUrl: './chat.component.html',
-  styleUrl: './chat.component.scss'
+  templateUrl: './chat.component.html'
 })
 export class ChatComponent {
-
 }

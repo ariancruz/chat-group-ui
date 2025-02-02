@@ -1,20 +1,24 @@
 import {inject, Injectable, signal} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Message} from '../models';
+import {CommentDto} from '../models';
+import {CommentHttpService} from '../http/comment.http.service';
+import {tap} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MessagesService {
 
-  messagesList = signal<Message[]>([
-    {_id: '1', text: 'buscando a nemo', type: 'req', user: 'Arian', date: new Date()},
-    {_id: '2', text: 'Claro, aquí te presento una guía completa sobre cómo integrar la API de Gemini con tu aplicación NestJS:', type: 'res', user: 'Arian', date: new Date()},
-  ])
+  messagesList = signal<CommentDto[]>([])
 
-  private readonly http = inject(HttpClient);
+  private commentHttpService = inject(CommentHttpService);
+
+  loadAll(id: string) {
+    return this.commentHttpService.findAll(id).pipe(
+      tap(list => this.messagesList.set(list))
+    )
+  }
 
   send(message: string): void {
-      //this.http.post(``, {})
+    //this.http.post(``, {})
   }
 }

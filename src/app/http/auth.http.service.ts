@@ -7,7 +7,7 @@ import {Observable} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthHttpService {
 
   private readonly url =  buildURL('/api/auth')
   private readonly httpClient = inject(HttpClient);

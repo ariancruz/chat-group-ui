@@ -6,7 +6,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Router, RouterLink} from '@angular/router';
-import {AuthService} from '../../services/auth.service';
+import {AuthHttpService} from '../../http/auth.http.service';
 import {SessionService} from '../../services/session.service';
 import {CreateUser} from '../../models';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
@@ -41,14 +41,14 @@ export class RegisterComponent {
 
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef)
-  private readonly authService = inject(AuthService)
+  private readonly authService = inject(AuthHttpService)
   private readonly sessionService = inject(SessionService)
 
 
   register(): void {
     this.authService.register(this.form.value as CreateUser).pipe(
       takeUntilDestroyed(this.destroyRef),
-      tap(this.sessionService.setUserLogged),
+      tap(user => this.sessionService.setUserLogged(user)),
       map(() => this.router.navigate(['']))
     ).subscribe()
   }

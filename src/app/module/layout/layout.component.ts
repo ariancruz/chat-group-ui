@@ -24,7 +24,7 @@ import {RouterOutlet} from '@angular/router';
   template: `
     <l-header (chaneDraw)="drawer.toggle()"/>
     <mat-drawer-container [hasBackdrop]="false" class="flex-auto" [autosize]="true">
-      <mat-drawer #drawer mode="side">
+      <mat-drawer #drawer mode="side" [opened]="true">
         <router-outlet name="sidebar"/>
       </mat-drawer>
       <mat-drawer-content class="border-round-top-2xl bg-white">

@@ -5,7 +5,7 @@ import {MatIcon} from '@angular/material/icon';
 import {MessagesService} from '../../../../services/messages.service';
 
 @Component({
-  selector: 'text-input',
+  selector: 'c-text-input',
   imports: [
     FormsModule,
     MatIcon,

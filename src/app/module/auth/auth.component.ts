@@ -5,7 +5,7 @@ import {MatInputModule} from '@angular/material/input';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
-import {AuthService} from '../../services/auth.service';
+import {AuthHttpService} from '../../http/auth.http.service';
 import {FormAuth} from '../../models';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {map, tap} from 'rxjs';
@@ -32,21 +32,21 @@ export class AuthComponent {
 
   hide = signal<boolean>(true);
   form = new FormGroup({
-    password: new FormControl<string>('', [Validators.required]),
-    email: new FormControl<string>('', [Validators.required, Validators.email]),
+    email: new FormControl<string>('admin@booking.com', [Validators.required, Validators.email]),
+    password: new FormControl<string>('123456', [Validators.required]),
   });
 
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef)
-  private readonly authService = inject(AuthService)
+  private readonly authService = inject(AuthHttpService)
   private readonly sessionService = inject(SessionService)
 
 
   login(): void {
     this.authService.login(this.form.value as FormAuth).pipe(
       takeUntilDestroyed(this.destroyRef),
-      tap(this.sessionService.setUserLogged),
-      map(() => this.router.navigate(['']))
+      tap(user => this.sessionService.setUserLogged(user)),
+      map(() => this.router.navigate([''])),
     ).subscribe()
   }
 
