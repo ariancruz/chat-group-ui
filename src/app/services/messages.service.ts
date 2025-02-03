@@ -21,7 +21,11 @@ export class MessagesService {
   }
 
   send(data: string): void {
-    this.commentHttpService.create({group: this.groupSelect(), data}).pipe(
+    const ia = data.startsWith('@gemini')
+    if (ia) {
+      data = data.slice(7).trim()
+    }
+    this.commentHttpService.create({group: this.groupSelect(), data, ia}).pipe(
       tap(msg => this.messagesList.update(list => list.concat(msg)))
     ).subscribe()
   }

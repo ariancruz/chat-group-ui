@@ -17,7 +17,6 @@ import {RouterOutlet} from '@angular/router';
       height: 100%;
       display: flex;
       flex-direction: column;
-      flex-wrap: wrap;
 
     }
   `,

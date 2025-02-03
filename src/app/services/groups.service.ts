@@ -26,4 +26,14 @@ export class GroupsService {
       })
     )
   }
+
+  addGroup(group: GroupsLightTO): void {
+    this.groupList.update(list => list.concat(group))
+  }
+
+  updateGroup(group: GroupsLightTO): void {
+    this.groupList.update(list => {
+      return list.map(g => g._id === group._id ? group : g)
+    })
+  }
 }

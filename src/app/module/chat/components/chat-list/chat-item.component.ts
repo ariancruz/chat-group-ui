@@ -33,15 +33,27 @@ import {DatePipe} from '@angular/common';
         text-align: right;
         width: 100%;
         color: gray;
+
+        &:first-child{
+          text-align: start;
+          margin-bottom: 5px;
+          font-weight: 700;
+          font-size: .8rem;
+        }
       }
 
       p {
-        margin: .25rem;
+        margin: .25rem .25rem .25rem 1rem;
       }
     }
   `,
   template: `
-    <p>{{ data().data }}</p>
+    <small>{{data().name}}</small>
+    @if (data().name === 'Gemini') {
+      <p [innerText]="data().data"></p>
+    } @else {
+      <p>{{ data().data }}</p>
+    }
     <small>{{ data().createdAt | date: 'short' }}</small>
   `
 })

@@ -11,7 +11,7 @@ export class SessionService {
 
   refresh = linkedSignal(() => this.userAuth()?.accessToken)
   readonly isLoggedIn = linkedSignal(() => !!this.userAuth())
-  readonly userId = linkedSignal(() => this.userAuth()?.id)
+  readonly userId = linkedSignal(() => this.userAuth()?._id)
 
   logout(): void {
     localStorage.clear();
