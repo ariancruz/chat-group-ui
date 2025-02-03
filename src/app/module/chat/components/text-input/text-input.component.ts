@@ -11,7 +11,6 @@ import {GeminiDirective} from '../../diirectives/gemini.directive';
     FormsModule,
     MatIcon,
     MatIconButton,
-    GeminiDirective,
   ],
   styles:`
     :host {

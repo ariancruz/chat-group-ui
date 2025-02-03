@@ -7,6 +7,6 @@ export interface CreateCommentDto {
 export interface CommentDto extends Omit<CreateCommentDto, 'ia'> {
   _id: string;
   name: string;
-  users: string;
+  user: string;
   createdAt: string;
 }

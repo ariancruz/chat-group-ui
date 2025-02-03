@@ -14,3 +14,9 @@ export interface UserAuthenticated extends Omit<CreateUser, 'password'> {
   refreshToken: string;
   _id: string;
 }
+
+
+export interface UserLight {
+  _id: string;
+  name: string;
+}

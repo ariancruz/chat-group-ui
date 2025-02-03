@@ -6,6 +6,11 @@
           Correo
         </mat-label>
         <input matInput formControlName="email">
+        @if (form.get('email')?.getError('required')) {
+            <mat-error>Campo Requerido</mat-error>
+          } @else if (form.get('email')?.getError('email')) {
+            <mat-error>Correo Incorrecto</mat-error>
+          }
       </mat-form-field>
       <mat-form-field>
         <mat-label>
@@ -18,6 +23,9 @@
         >
           <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
+        @if (form.get('password')?.getError('required')) {
+          <mat-error>Campo Requerido</mat-error>
+        }
       </mat-form-field>
     </form>
   </mat-card-content>

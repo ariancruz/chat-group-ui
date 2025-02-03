@@ -24,7 +24,7 @@ import {MatDivider} from '@angular/material/divider';
     MatIconModule,
     MatButtonModule,
     RouterLink,
-    MatDivider
+    MatDivider,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
@@ -36,7 +36,7 @@ export class RegisterComponent {
     name: new FormControl<string>('', Validators.required),
     email: new FormControl<string>('', [Validators.required, Validators.email]),
     password: new FormControl<string>('', Validators.required),
-    confirmPassword: new FormControl<string>('',Validators.required),
+    confirmPassword: new FormControl<string>('', Validators.required),
   }, {validators: mistMach});
 
   private readonly router = inject(Router);

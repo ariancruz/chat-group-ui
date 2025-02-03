@@ -6,6 +6,9 @@
           Nombre
         </mat-label>
         <input matInput formControlName="name">
+        @if (form.get('name')?.getError('required')) {
+          <mat-error>Campo Requerido</mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field>
@@ -13,6 +16,11 @@
           Correo
         </mat-label>
         <input matInput formControlName="email">
+        @if (form.get('email')?.getError('required')) {
+          <mat-error>Campo Requerido</mat-error>
+        } @else if (form.get('email')?.getError('email')) {
+          <mat-error>Correo Incorrecto</mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field>
@@ -26,6 +34,9 @@
         >
           <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
+        @if (form.get('password')?.getError('required')) {
+          <mat-error>Campo Requerido</mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field>
@@ -39,7 +50,13 @@
         >
           <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
+        @if (form.get('password')?.getError('required')) {
+          <mat-error>Campo Requerido</mat-error>
+        }
       </mat-form-field>
+      @if (form.getError('mistmach')) {
+        <mat-error>Las contraseñas no coinciden</mat-error>
+      }
     </form>
   </mat-card-content>
   <mat-card-actions class="flex-column align-items-stretch align-self-center">
