@@ -1,4 +1,4 @@
-import {Component, computed, effect, inject} from '@angular/core';
+import {Component, computed, effect, inject, linkedSignal} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle} from '@angular/material/dialog';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
@@ -10,6 +10,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {UserHttpService} from '../../../../http/user.http.service';
 import {MatListModule} from '@angular/material/list';
+import {SessionService} from '../../../../services/session.service';
 
 interface DialogData {
   _id?: string;
@@ -31,6 +32,7 @@ export class ManagerGroupModalComponent {
   readonly dialogRef = inject(MatDialogRef<ManagerGroupModalComponent>);
   readonly data = inject<DialogData>(MAT_DIALOG_DATA);
   readonly groups = inject(GroupsService);
+  readonly session = inject(SessionService);
   readonly userHttpService = inject(UserHttpService);
 
   form: FormGroup = new FormGroup({
@@ -40,6 +42,7 @@ export class ManagerGroupModalComponent {
   })
 
   hasId = computed(() => !!this.data?._id)
+  userId = linkedSignal(() => this.session.userId())
 
   userRx = rxResource({
     loader: () => this.userHttpService.findAll()
@@ -55,11 +58,14 @@ export class ManagerGroupModalComponent {
   })
 
   updateFormEff = effect(() => {
-    const gr = this.groupRx.value()
+    const gr = this.groupRx.value();
 
     if (gr) {
       const {_id, name, users} = gr;
-      this.form.patchValue({_id, name, users: users.map(u => u._id)})
+      const list = users.map(u => u._id)
+      this.form.patchValue({_id, name, users: list})
+    } else {
+      this.form.patchValue({users: [this.userId()]})
     }
   })
 
@@ -67,6 +73,6 @@ export class ManagerGroupModalComponent {
     const {value} = this.form;
     this.hasId() ?
       this.groups.update(value) :
-    this.groups.create(value)
+      this.groups.create(value)
   }
 }

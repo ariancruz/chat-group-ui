@@ -10,8 +10,8 @@
     </mat-form-field>
     <mat-label>Usuarios</mat-label>
     <mat-selection-list formControlName="users">
-      @for (user of userRx.value(); track user._id) {
-        <mat-list-option [value]="user._id">{{ user.name }}</mat-list-option>
+      @for (user of userRx.value(); track user._id; let i = $index) {
+        <mat-list-option [value]="user._id" [disabled]="user._id === userId()">{{ user.name }}</mat-list-option>
       }
     </mat-selection-list>
   </form>

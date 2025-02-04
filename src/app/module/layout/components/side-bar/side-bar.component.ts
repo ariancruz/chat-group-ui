@@ -7,12 +7,11 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {tap} from 'rxjs';
 import {SessionService} from '../../../../services/session.service';
 import {EventGroup} from '../../../../enums';
-import {GroupsLightTO, GroupTO} from '../../../../models';
+import {GroupsLightTO} from '../../../../models';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatDialog} from '@angular/material/dialog';
-import {filter} from 'rxjs/operators';
 import {ManagerGroupModalComponent} from '../manager-group-modal/manager-group-modal.component';
 
 @Component({
@@ -39,6 +38,13 @@ import {ManagerGroupModalComponent} from '../manager-group-modal/manager-group-m
     }
   `,
   template: `
+    <div class="flex flex-row align-items-center mx-3">
+      <h5 class="flex-1">Mis grupos</h5>
+      <button mat-icon-button (click)="addGroup()">
+        <mat-icon>add_circle</mat-icon>
+      </button>
+    </div>
+    <mat-divider/>
     <mat-selection-list [multiple]="false" hideSingleSelectionIndicator (selectionChange)="updateSelected($event)">
       @for (chat of groups.groupList(); track chat._id; ) {
         <mat-list-option routerLinkActive="activated" [routerLink]="['/',chat._id]" [value]="chat">
@@ -85,8 +91,8 @@ export class SideBarComponent {
   }
 
   updateSelected($event: MatSelectionListChange): void {
-   const selected = $event.options[0].value;
-   this.groups.setSelected(selected);
+    const selected = $event.options[0].value;
+    this.groups.setSelected(selected);
   }
 
   menuSelected($event: Event, chat: GroupsLightTO): void {
@@ -97,13 +103,7 @@ export class SideBarComponent {
 
 
   editGroup(): void {
-    const dialogRef = this.dialog.open(
-      ManagerGroupModalComponent, {data: this.menuSelect}
-    );
-
-    dialogRef.afterClosed()
-      .pipe(filter(v => !!v))
-      .subscribe((result: GroupTO) => this.groups.update(result));
+    this.dialog.open(ManagerGroupModalComponent, {data: this.menuSelect});
   }
 
 
@@ -111,5 +111,9 @@ export class SideBarComponent {
     if (this.menuSelect) {
       this.groups.delete(this.menuSelect._id)
     }
+  }
+
+  addGroup(): void {
+    this.dialog.open(ManagerGroupModalComponent);
   }
 }
