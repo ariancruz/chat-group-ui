@@ -29,4 +29,10 @@ export class MessagesService {
       tap(msg => this.messagesList.update(list => list.concat(msg)))
     ).subscribe()
   }
+
+  addMsg(msg: CommentDto): void {
+    this.messagesList.set(
+      this.messagesList().concat(msg)
+    );
+  }
 }

@@ -6,7 +6,7 @@ import {SocketService} from '../../../../services/socket.service';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {tap} from 'rxjs';
 import {SessionService} from '../../../../services/session.service';
-import {EventGroup} from '../../../../enums';
+import {EventsWs} from '../../../../enums';
 import {GroupsLightTO} from '../../../../models';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
@@ -80,11 +80,11 @@ export class SideBarComponent {
 
   constructor() {
     const channel = this.session.userId() + ':';
-    this.socket.on(channel + EventGroup.ADD_GROUP).pipe(
+    this.socket.on(channel + EventsWs.ADD_GROUP).pipe(
       takeUntilDestroyed(),
       tap((group: GroupsLightTO) => this.groups.addGroup(group))
     ).subscribe()
-    this.socket.on(channel + EventGroup.UPDATE_GROUP).pipe(
+    this.socket.on(channel + EventsWs.UPDATE_GROUP).pipe(
       takeUntilDestroyed(),
       tap((group: GroupsLightTO) => this.groups.updateGroup(group))
     ).subscribe()

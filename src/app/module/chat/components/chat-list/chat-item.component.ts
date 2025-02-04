@@ -1,4 +1,4 @@
-import {Component, input} from '@angular/core';
+import {Component, ElementRef, inject, input} from '@angular/core';
 import {CommentDto} from '../../../../models';
 import {DatePipe} from '@angular/common';
 
@@ -59,4 +59,6 @@ import {DatePipe} from '@angular/common';
 })
 export class ChatItemComponent {
   data = input.required<CommentDto>();
+
+  readonly el = inject(ElementRef<ChatItemComponent>);
 }
