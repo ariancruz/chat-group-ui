@@ -80,6 +80,7 @@ export class SideBarComponent {
 
   constructor() {
     const channel = this.session.userId() + ':';
+
     this.socket.on(channel + EventsWs.ADD_GROUP).pipe(
       takeUntilDestroyed(),
       tap((group: GroupsLightTO) => this.groups.addGroup(group))
@@ -87,6 +88,10 @@ export class SideBarComponent {
     this.socket.on(channel + EventsWs.UPDATE_GROUP).pipe(
       takeUntilDestroyed(),
       tap((group: GroupsLightTO) => this.groups.updateGroup(group))
+    ).subscribe()
+    this.socket.on(channel + EventsWs.REMOVED_GROUP).pipe(
+      takeUntilDestroyed(),
+      tap((group: Partial<GroupsLightTO>) => this.groups.removedGroup(group))
     ).subscribe()
   }
 

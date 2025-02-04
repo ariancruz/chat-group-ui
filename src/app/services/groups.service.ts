@@ -74,4 +74,11 @@ export class GroupsService {
   }
 
 
+  removedGroup(group: Partial<GroupsLightTO>): void {
+    const {_id} = group;
+
+    this.groupList.set(
+      this.groupList().filter(g => g._id !== _id)
+    );
+  }
 }

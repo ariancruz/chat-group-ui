@@ -25,9 +25,7 @@ export class MessagesService {
     if (ia) {
       data = data.slice(7).trim()
     }
-    this.commentHttpService.create({group: this.groupSelect(), data, ia}).pipe(
-      tap(msg => this.messagesList.update(list => list.concat(msg)))
-    ).subscribe()
+    this.commentHttpService.create({group: this.groupSelect(), data, ia}).subscribe()
   }
 
   addMsg(msg: CommentDto): void {
