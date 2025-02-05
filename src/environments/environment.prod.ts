@@ -3,5 +3,5 @@
 // The list of file replacements can be found in `angular.json`.
 export const environment = {
   production: true,
-  urlApi: 'https://chat-server-flax.vercel.app'
+  urlApi: 'https://chat-server-two-phi.vercel.app'
 };
