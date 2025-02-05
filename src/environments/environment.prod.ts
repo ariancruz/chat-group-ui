@@ -3,5 +3,6 @@
 // The list of file replacements can be found in `angular.json`.
 export const environment = {
   production: true,
-  urlApi: 'https://booking-nestjs.vercel.app'
+  urlApi: 'https://chat-server-flax.vercel.app',
+  io: 'https://chat-server-flax.vercel.app:8080',
 };
