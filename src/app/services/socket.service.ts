@@ -11,7 +11,7 @@ export class SocketService {
   private socket: Socket;
 
   constructor() {
-    this.socket = io(environment.io);
+    this.socket = io(environment.urlApi);
   }
 
 

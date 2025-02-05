@@ -4,5 +4,4 @@
 export const environment = {
   production: false,
   urlApi: 'http://localhost:3000',
-  io: 'http://localhost:8080',
 };
