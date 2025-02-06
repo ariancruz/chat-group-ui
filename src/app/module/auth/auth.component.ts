@@ -32,8 +32,8 @@ export class AuthComponent {
 
   hide = signal<boolean>(true);
   form = new FormGroup({
-    email: new FormControl<string>('admin@booking.com', [Validators.required, Validators.email]),
-    password: new FormControl<string>('123456', [Validators.required]),
+    email: new FormControl<string>('', [Validators.required, Validators.email]),
+    password: new FormControl<string>('', [Validators.required]),
   });
 
   private readonly router = inject(Router);
