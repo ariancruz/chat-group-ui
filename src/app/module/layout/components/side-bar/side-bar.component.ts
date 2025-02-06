@@ -106,11 +106,9 @@ export class SideBarComponent {
     this.menuSelect = chat;
   }
 
-
   editGroup(): void {
     this.dialog.open(ManagerGroupModalComponent, {data: this.menuSelect});
   }
-
 
   deleteGroup(): void {
     if (this.menuSelect) {

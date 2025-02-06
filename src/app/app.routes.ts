@@ -1,6 +1,5 @@
 import {Routes} from '@angular/router';
-import {canActivateNotAuthGuard} from './guards/not.auth.guard';
-import {canActivateAuthGuard} from './guards/auth.guard';
+import {canActivateAuthGuard, canActivateNotAuthGuard} from './guards';
 
 export const routes: Routes = [
   {

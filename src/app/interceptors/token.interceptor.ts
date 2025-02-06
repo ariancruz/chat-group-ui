@@ -7,7 +7,7 @@ export function TokenInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn)
   const sessionService = inject(SessionService);
   // Clone the request to add the authentication header.
   const isLoggedIn = sessionService.isLoggedIn() && sessionService.token();
-  const isNotRefresh = req.url.includes('/auth/refresh_token');
+  const isNotRefresh = req.url.includes('/auth/refresh');
   if (isLoggedIn && !isNotRefresh) {
     req = req.clone({
       setHeaders: {

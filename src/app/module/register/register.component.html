@@ -63,12 +63,14 @@
     <button (click)="register()" [disabled]="form.invalid" class="w-15rem" color="primary"
             mat-raised-button type="submit">
       Crear Cuenta
+      <mat-icon>app_registration</mat-icon>
     </button>
 
     <mat-divider class="my-3 mx-5"/>
 
     <button class="w-15rem" color="primary" mat-raised-button routerLink="/auth">
       Entrar
+      <mat-icon>login</mat-icon>
     </button>
   </mat-card-actions>
 </mat-card>
