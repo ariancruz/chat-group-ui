@@ -5,21 +5,21 @@
         <mat-label>
           Correo
         </mat-label>
-        <input matInput formControlName="email">
+        <input formControlName="email" matInput>
         @if (form.get('email')?.getError('required')) {
-            <mat-error>Campo Requerido</mat-error>
-          } @else if (form.get('email')?.getError('email')) {
-            <mat-error>Correo Incorrecto</mat-error>
-          }
+          <mat-error>Campo Requerido</mat-error>
+        } @else if (form.get('email')?.getError('email')) {
+          <mat-error>Correo Incorrecto</mat-error>
+        }
       </mat-form-field>
       <mat-form-field>
         <mat-label>
           Contraseña
         </mat-label>
-        <input matInput [type]="hide() ? 'password' : 'text'" formControlName="password">
-        <button mat-icon-button matSuffix
-                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()"
-                (click)="changeState($event)"
+        <input [type]="hide() ? 'password' : 'text'" formControlName="password" matInput>
+        <button (click)="changeState($event)" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide()" mat-icon-button
+                matSuffix
         >
           <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
@@ -30,14 +30,14 @@
     </form>
   </mat-card-content>
   <mat-card-actions class="flex-column align-items-stretch align-self-center">
-    <button mat-raised-button type="submit" class="w-15rem" color="primary"
-            [disabled]="form.invalid" (click)="login()">
+    <button (click)="login()" [disabled]="form.invalid" class="w-15rem" color="primary"
+            mat-raised-button type="submit">
       Entrar
     </button>
 
     <mat-divider class="my-3 mx-5"/>
 
-    <button mat-raised-button routerLink="/register" class="w-15rem" color="primary">
+    <button class="w-15rem" color="primary" mat-raised-button routerLink="/register">
       Crear cuenta
     </button>
   </mat-card-actions>

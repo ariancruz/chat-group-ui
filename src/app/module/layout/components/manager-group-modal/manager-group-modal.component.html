@@ -3,7 +3,7 @@
   <form [formGroup]="form" class="flex flex-column">
     <mat-form-field>
       <mat-label>Nombre</mat-label>
-      <input matInput formControlName="name">
+      <input formControlName="name" matInput>
       @if (form.get('name')?.getError('required')) {
         <mat-error>Campo Requerido</mat-error>
       }
@@ -18,8 +18,8 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancelar</button>
-  <button mat-button mat-dialog-close cdkFocusInitial
-          [disabled]="form.invalid" (click)="save()">
+  <button (click)="save()" [disabled]="form.invalid" cdkFocusInitial
+          mat-button mat-dialog-close>
     {{ hasId() ? 'Editar' : 'Crear' }}
   </button>
 </mat-dialog-actions>

@@ -1,12 +1,12 @@
 <mat-toolbar>
-  <button mat-icon-button class="example-icon" aria-label="icon-button with menu icon" (click)="chaneDraw.emit()">
+  <button (click)="chaneDraw.emit()" aria-label="icon-button with menu icon" class="example-icon" mat-icon-button>
     <mat-icon>menu</mat-icon>
   </button>
   <span>My Chat</span>
 
   <span class="spacer"></span>
 
-  <button mat-icon-button aria-label="actions" (click)="logout()">
+  <button (click)="logout()" aria-label="actions" mat-icon-button>
     <mat-icon>logout</mat-icon>
   </button>
 </mat-toolbar>

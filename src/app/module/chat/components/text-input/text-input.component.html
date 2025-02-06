@@ -1,0 +1,64 @@
+<div class="wrap flex flex-row align-items-center">
+  @if (showIcon()) {
+    <span (click)="showIcon.set(false)" class="ia">
+      <ng-container [ngTemplateOutlet]="icon"/>
+    </span>
+  }
+  <textarea (keyup.enter)="send()" (showIa)="showIa($event)" [(ngModel)]="value"
+            class="w-full" gemini></textarea>
+</div>
+<button (click)="send()" mat-icon-button>
+  <mat-icon>send</mat-icon>
+</button>
+
+<ng-template #icon>
+  <svg height="32" preserveAspectRatio="xMidYMid meet" style="width: 100%; height: 100%; transform: translate3d(0px, 0px, 0px); content-visibility: visible;" viewBox="0 0 32 32" width="32"
+       xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+      <clipPath id="__lottie_element_678">
+        <rect height="32" width="32" x="0" y="0"></rect>
+      </clipPath>
+      <g id="__lottie_element_685">
+        <g opacity="1" style="display: block;" transform="matrix(0.9999992251396179,-0.0012322751572355628,0.0012322751572355628,0.9999992251396179,16,16)">
+          <g opacity="1" transform="matrix(1,0,0,1,0,0)">
+            <path d=" M0.027000000700354576,14 C0.47999998927116394,6.489999771118164 6.489999771118164,0.47999998927116394 14,0.027000000700354576 C14,0.027000000700354576 14,-0.027000000700354576 14,-0.027000000700354576 C6.489999771118164,-0.47999998927116394 0.47999998927116394,-6.489999771118164 0.027000000700354576,-14 C0.027000000700354576,-14 -0.027000000700354576,-14 -0.027000000700354576,-14 C-0.47999998927116394,-6.489999771118164 -6.489999771118164,-0.47999998927116394 -14,-0.027000000700354576 C-14,-0.027000000700354576 -14,0.027000000700354576 -14,0.027000000700354576 C-6.489999771118164,0.47999998927116394 -0.47999998927116394,6.489999771118164 -0.027000000700354576,14 C-0.027000000700354576,14 0.027000000700354576,14 0.027000000700354576,14z" fill="url(#__lottie_element_688)"
+                  fill-opacity="1"></path>
+          </g>
+        </g>
+      </g>
+      <linearGradient gradientUnits="userSpaceOnUse" id="__lottie_element_688" spreadMethod="pad" x1="-9.222999572753906" x2="10.461999893188477"
+                      y1="8.489999771118164" y2="-8.211999893188477">
+        <stop offset="0%" stop-color="rgb(33,123,254)"></stop>
+        <stop offset="14%" stop-color="rgb(20,133,252)"></stop>
+        <stop offset="27%" stop-color="rgb(7,142,251)"></stop>
+        <stop offset="52%" stop-color="rgb(84,143,253)"></stop>
+        <stop offset="78%" stop-color="rgb(161,144,255)"></stop>
+        <stop offset="89%" stop-color="rgb(175,148,254)"></stop>
+        <stop offset="100%" stop-color="rgb(189,153,254)"></stop>
+      </linearGradient>
+      <linearGradient gradientUnits="userSpaceOnUse" id="__lottie_element_692" spreadMethod="pad" x1="-4.002999782562256" x2="8.092000007629395"
+                      y1="4.630000114440918" y2="-7.886000156402588">
+        <stop offset="0%" stop-color="rgb(33,123,254)"></stop>
+        <stop offset="14%" stop-color="rgb(20,133,252)"></stop>
+        <stop offset="27%" stop-color="rgb(7,142,251)"></stop>
+        <stop offset="52%" stop-color="rgb(84,143,253)"></stop>
+        <stop offset="78%" stop-color="rgb(161,144,255)"></stop>
+        <stop offset="89%" stop-color="rgb(175,148,254)"></stop>
+        <stop offset="100%" stop-color="rgb(189,153,254)"></stop>
+      </linearGradient>
+      <mask id="__lottie_element_685_1" mask-type="alpha">
+        <use xlink:href="#__lottie_element_685"></use>
+      </mask>
+    </defs>
+    <g clip-path="url(#__lottie_element_678)">
+      <g mask="url(#__lottie_element_685_1)" style="display: block;">
+        <g opacity="1" transform="matrix(1,0,0,1,16,16)">
+          <g opacity="1" transform="matrix(1,0,0,1,0,0)">
+            <path d=" M0,-16 C8.830400466918945,-16 16,-8.830400466918945 16,0 C16,8.830400466918945 8.830400466918945,16 0,16 C-8.830400466918945,16 -16,8.830400466918945 -16,0 C-16,-8.830400466918945 -8.830400466918945,-16 0,-16z" fill="url(#__lottie_element_692)"
+                  fill-opacity="1"></path>
+          </g>
+        </g>
+      </g>
+    </g>
+  </svg>
+</ng-template>

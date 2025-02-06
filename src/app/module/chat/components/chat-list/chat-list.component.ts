@@ -34,11 +34,11 @@ import {ActivatedRoute} from '@angular/router';
   `
 })
 export class ChatListComponent {
-  readonly socket = inject(SocketService);
-  readonly message = inject(MessagesService)
-  readonly activatedRoute = inject(ActivatedRoute)
+  readonly message = inject(MessagesService);
+  private readonly socket = inject(SocketService);
+  private readonly activatedRoute = inject(ActivatedRoute);
 
-  comments = viewChildren<ChatItemComponent>(ChatItemComponent);
+  private comments = viewChildren<ChatItemComponent>(ChatItemComponent);
 
   constructor() {
     this.activatedRoute.params.pipe(

@@ -34,7 +34,6 @@ export class IaLoaderComponent {
   loading = signal(false)
 
 
-
   constructor() {
     const {id} = this.activatedRoute.snapshot.params
     const channel = id + ':';
@@ -46,7 +45,7 @@ export class IaLoaderComponent {
 
     effect(() => {
       if (this.loading()) {
-        this.spinner()?.nativeElement.scrollIntoView({ behavior: 'smooth'})
+        this.spinner()?.nativeElement.scrollIntoView({behavior: 'smooth'})
       }
     });
   }

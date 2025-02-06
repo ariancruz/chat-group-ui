@@ -1,0 +1,41 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 15px;
+  position: relative;
+
+  .wrap {
+    width: 70%;
+
+    textarea {
+      field-sizing: content;
+      padding: 1rem 1.5rem 1rem;
+      border-radius: 999px;
+      resize: none;
+
+      &:focus {
+        outline: 0;
+      }
+    }
+
+    .ia {
+      margin-right: 0.5rem;
+      border-radius: 999px;
+      border: solid 1px;
+      padding: 5px 5px 0 5px;
+      cursor: pointer;
+    }
+  }
+
+  button {
+    position: relative;
+    right: 3rem;
+
+    &:hover, &:focus {
+      color: var(--mat-sys-primary);
+      transform: rotate(-45deg);
+    }
+  }
+
+}

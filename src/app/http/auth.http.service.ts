@@ -9,7 +9,7 @@ import {Observable} from 'rxjs';
 })
 export class AuthHttpService {
 
-  private readonly url =  buildURL('/api/auth')
+  private readonly url = buildURL('/api/auth')
   private readonly httpClient = inject(HttpClient);
 
   login(data: FormAuth): Observable<UserAuthenticated> {

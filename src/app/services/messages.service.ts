@@ -20,11 +20,7 @@ export class MessagesService {
     )
   }
 
-  send(data: string): void {
-    const ia = data.startsWith('@gemini')
-    if (ia) {
-      data = data.slice(7).trim()
-    }
+  send(data: string, ia: boolean): void {
     this.commentHttpService.create({group: this.groupSelect(), data, ia}).subscribe()
   }
 

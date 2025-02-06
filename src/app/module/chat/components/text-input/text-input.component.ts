@@ -3,7 +3,11 @@ import {FormsModule} from '@angular/forms';
 import {MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {MessagesService} from '../../../../services/messages.service';
-import {GeminiDirective} from '../../diirectives/gemini.directive';
+import {GeminiDirective} from '../../directives/gemini.directive';
+import {ActivatedRoute} from '@angular/router';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {tap} from 'rxjs';
+import {NgTemplateOutlet} from '@angular/common';
 
 @Component({
   selector: 'c-text-input',
@@ -11,59 +15,38 @@ import {GeminiDirective} from '../../diirectives/gemini.directive';
     FormsModule,
     MatIcon,
     MatIconButton,
+    GeminiDirective,
+    NgTemplateOutlet,
   ],
-  styles:`
-    :host {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding-bottom: 15px;
-      position: relative;
-
-      textarea {
-        width: 70%;
-        field-sizing: content;
-        padding: 15px 20px;
-        border-radius: 999px;
-        resize: none;
-
-        &:focus {
-          outline: 0;
-        }
-      }
-
-      .highlighted {
-        background-color: aqua;
-      }
-
-      button {
-        position: relative;
-        right: 3rem;
-
-        &:hover, &:focus {
-          color: var(--mat-sys-primary);
-          transform: rotate(-45deg);
-        }
-      }
-
-    }
-
-  `,
-  template: `
-    <textarea [(ngModel)]="value" (keyup.enter)="send()"></textarea>
-    <button mat-icon-button (click)="send()">
-      <mat-icon>send</mat-icon>
-    </button>
-  `,
+  templateUrl: './text-input.component.html',
+  styleUrl: './text-input.component.scss',
 })
 export class TextInputComponent {
 
   value = model<string>('');
+  showIcon = model<boolean>(false);
 
-  private readonly message = inject(MessagesService)
+  private readonly message = inject(MessagesService);
+  private readonly activatedRoute = inject(ActivatedRoute);
+
+  constructor() {
+    this.activatedRoute.params.pipe(
+      takeUntilDestroyed(),
+      tap(() => this.clear())
+    ).subscribe()
+  }
 
   send(): void {
-    this.message.send(this.value());
-    this.value.set('')
+    this.message.send(this.value(), this.showIcon());
+    this.clear();
+  }
+
+  showIa($event: boolean): void {
+    this.showIcon.set($event);
+  }
+
+  private clear(): void {
+    this.value.set('');
+    this.showIcon.set(false);
   }
 }
