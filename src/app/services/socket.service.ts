@@ -14,11 +14,18 @@ export class SocketService {
     this.socket = io(environment.urlApi);
   }
 
-
-  emit(event: string, data: any) {
-    this.socket.emit(event, data);
+  connect(): void {
+    this.socket.connect();
   }
 
+  disconnect(): void {
+    this.socket.disconnect();
+  }
+
+
+  emit(event: string, data: any): void {
+    this.socket.emit(event, data);
+  }
 
   on(event: string): Observable<any> {
     return new Observable((observer) => {

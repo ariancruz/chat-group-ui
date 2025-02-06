@@ -5,7 +5,7 @@ import {MsgTypePipe} from '../../pipes/msg-type.pipe';
 import {SocketService} from '../../../../services/socket.service';
 import {EventsWs} from '../../../../enums';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {tap} from 'rxjs';
+import {switchMap, tap} from 'rxjs';
 import {CommentDto} from '../../../../models';
 import {ActivatedRoute} from '@angular/router';
 
@@ -38,14 +38,12 @@ export class ChatListComponent {
   readonly message = inject(MessagesService)
   readonly activatedRoute = inject(ActivatedRoute)
 
-  comments = viewChildren<ChatItemComponent>(ChatItemComponent)
+  comments = viewChildren<ChatItemComponent>(ChatItemComponent);
 
   constructor() {
-    const {id} = this.activatedRoute.snapshot.params
-    const channel = id + ':';
-
-    this.socket.on(channel + EventsWs.NEW_COMMENT).pipe(
+    this.activatedRoute.params.pipe(
       takeUntilDestroyed(),
+      switchMap(({id}) => this.socket.on(id + ':' + EventsWs.NEW_COMMENT)),
       tap((msg: CommentDto) => this.message.addMsg(msg))
     ).subscribe()
 

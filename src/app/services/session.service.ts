@@ -1,5 +1,6 @@
-import {Injectable, linkedSignal, signal} from '@angular/core';
+import {inject, Injectable, linkedSignal, signal} from '@angular/core';
 import {RefreshTokenTO, UserAuthenticated} from '../models';
+import {SocketService} from './socket.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,13 @@ export class SessionService {
   readonly isLoggedIn = linkedSignal(() => !!this.userAuth())
   readonly userId = linkedSignal(() => this.userAuth()?._id)
 
+  private readonly socket = inject(SocketService);
+
   logout(): void {
     localStorage.clear();
-    this.token.set(null)
-    this.userAuth.set(null)
+    this.token.set(null);
+    this.userAuth.set(null);
+    this.socket.disconnect();
   }
 
   setUserLogged(data: UserAuthenticated): void {
@@ -26,6 +30,8 @@ export class SessionService {
     if (accessToken) {
       this.token.set(accessToken)
       localStorage.setItem('access', accessToken);
+
+      this.socket.connect();
     }
     if (refreshToken) {
       this.refresh.set(refreshToken);
