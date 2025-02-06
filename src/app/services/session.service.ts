@@ -9,7 +9,7 @@ export class SessionService {
   token = signal<string | null>(null)
   userAuth = signal<UserAuthenticated | null>(null)
 
-  refresh = linkedSignal(() => this.userAuth()?.accessToken)
+  refresh = linkedSignal(() => this.userAuth()?.accessToken || null)
   readonly isLoggedIn = linkedSignal(() => !!this.userAuth())
   readonly userId = linkedSignal(() => this.userAuth()?._id)
 
@@ -44,7 +44,11 @@ export class SessionService {
     }
   }
 
-  setRefresh({refreshToken, token}: RefreshTokenTO): void {
+  setRefresh(refreshToken: string | null): void {
+    this.refresh.set(refreshToken);
+  }
+
+  setUpdateCredentials({refreshToken, token}: RefreshTokenTO): void {
     if (refreshToken && token) {
       this.token.set(token);
       this.refresh.set(refreshToken);

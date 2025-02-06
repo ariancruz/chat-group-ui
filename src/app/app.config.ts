@@ -19,9 +19,11 @@ export const appConfig: ApplicationConfig = {
       const session = inject(SessionService);
       const router = inject(Router);
       const token = localStorage.getItem('access')
+      const refresh = localStorage.getItem('refresh')
 
       if (token) {
         session.setToken(token)
+        session.setRefresh(refresh)
         return authService.profile().pipe(
           tap(user => session.setUserLogged(user)),
           map(() => router.navigate(['']))
