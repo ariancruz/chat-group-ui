@@ -1,7 +1,9 @@
 import {inject, Injectable, signal} from '@angular/core';
 import {GroupsHttpService} from '../http/groups.http.service';
-import {tap} from 'rxjs';
+import {switchMap, tap} from 'rxjs';
 import {GroupsLightTO, GroupTO} from '../models';
+import {toObservable} from '@angular/core/rxjs-interop';
+import {filter} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +12,12 @@ export class GroupsService {
 
   groupList = signal<GroupsLightTO[]>([]);
   selected = signal<GroupsLightTO | undefined>(undefined)
-
-
   private groupsHttpService = inject(GroupsHttpService);
+
+  group = toObservable(this.selected).pipe(
+    filter(f => !!f),
+    switchMap(({_id}) => this.groupsHttpService.findById(_id))
+  )
 
   loadAll(id?: string) {
     return this.groupsHttpService.findAll().pipe(
